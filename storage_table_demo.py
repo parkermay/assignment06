@@ -2,7 +2,7 @@ import string,random,time,azurerm,json
 from azure.storage.table import TableService, Entity
 
 # function to add cars
-def addCar(rowKey, make, model, year, color, price)
+def addCar(rowKey, make, model, year, color, price):
     car = Entity()
     car.PartitionKey = 'cardealership'
     car.RowKey = str(rowKey);
@@ -12,7 +12,20 @@ def addCar(rowKey, make, model, year, color, price)
     car.color = color
     car.price = price
     table_service.insert_entity('itemstable', car)
-    print('Created entry for car ' + make + ', ' + model)
+    print('Created entry for car ' + make + ' ' + model)
+    return
+
+# function to add coffee
+def addCoffee(rowKey, brand, flavor, size, price):
+    coffee = Entity()
+    coffee.PartitionKey = 'coffeeshop'
+    coffee.RowKey = str(rowKey);
+    coffee.brand = brand
+    coffee.flavor = flavor
+    coffee.size = size
+    coffee.price = price
+    table_service.insert_entity('itemstable', coffee)
+    print('Created entry for coffee ' + brand + ' ' + flavor)
     return
 
 
@@ -83,9 +96,13 @@ raw_input('Press Enter to continue...')
 # These two properties are used as a primary key to index the Table. This makes queries much quicker.
 
 # Create car entities
+keyCounter = 1
+addCar(keyCounter++, 'Audi', 'Q5', 2017, 'black', 58999)
+addCar(keyCounter++, 'Ford', 'Explorer', 2016, 'purple', 45000)
+addCar(keyCounter++, 'Subaru', 'Outback', 2015, 'green', 43000)
+addCar(keyCounter++, 'BMW', 'X3', 2010, 'red', 62000)
 
-addCar(1, 'Audi', 'Q5', 2017, 'black', 58999)
-
+addCoffee(keyCounter++, 'Folgers', 'Almond', 'small', 2.50)
 
 # pizza = Entity()
 # pizza.PartitionKey = 'pizzamenu'
