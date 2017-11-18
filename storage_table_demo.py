@@ -6,8 +6,8 @@ auth_token = azurerm.get_access_token_from_cli()
 subscription_id = azurerm.get_subscription_from_cli()
 
 # Define variables with random resource group and storage account names
-resourcegroup_name = 'zdj'+''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
-storageaccount_name = 'zdj'+''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
+resourcegroup_name = 'pmay'+''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
+storageaccount_name = 'pmay'+''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
 location = 'eastus'
 
 ###
@@ -128,9 +128,9 @@ for item in items:
     print('Name: ' + item.description)
     print('Cost: ' + str(item.cost) + '\n')
 
-items = table_service.query_entities('itemstable', filter="PartitionKey eq 'clothingstore'", select='description,price')
+items = table_service.query_entities('itemstable', filter="PartitionKey eq 'clothingstore'", select='sku,price')
 for item in items:
-    print('Name: ' + item.description)
+    print('Name: ' + item.sku)
     print('Price: ' + str(item.price) + '\n')
 
 time.sleep(1)
