@@ -101,54 +101,11 @@ addCar(2, 'Ford', 'Explorer', 2016, 'purple', 45000)
 addCar(3, 'Subaru', 'Outback', 2015, 'green', 43000)
 addCar(4, 'BMW', 'X3', 2010, 'red', 62000)
 
+# Create coffee entities
 addCoffee(5, 'Folgers', 'Almond', 'small', 2.50)
+addCoffee(6, 'Lavazza', 'Chocolate', 'medium', 4.00)
+addCoffee(7, 'Seattle''s Best', 'Latte', 'large', 6.99)
 
-# pizza = Entity()
-# pizza.PartitionKey = 'pizzamenu'
-# pizza.RowKey = '001'
-# pizza.description = 'Pepperoni'
-# pizza.cost = 18
-# table_service.insert_entity('itemstable', pizza)
-# print('Created entry for pepperoni...')
-
-# pizza = Entity()
-# pizza.PartitionKey = 'pizzamenu'
-# pizza.RowKey = '002'
-# pizza.description = 'Veggie'
-# pizza.cost = 15
-# table_service.insert_entity('itemstable', pizza)
-# print('Created entry for veggie...')
-
-# pizza = Entity()
-# pizza.PartitionKey = 'pizzamenu'
-# pizza.RowKey = '003'
-# pizza.description = 'Hawaiian'
-# pizza.cost = 12
-# table_service.insert_entity('itemstable', pizza)
-# print('Created entry for Hawaiian...\n')
-
-# A partition key tracks how like-minded entries in the Table are created and queried.
-# A row key is a unique ID for each entity in the partition
-# These two properties are used as a primary key to index the Table. This makes queries much quicker.
-
-# clothing = Entity()
-# clothing.PartitionKey = 'clothingstore'
-# clothing.RowKey = '005'
-# clothing.sku = 'BLK203123'
-# clothing.item = 'sweater'
-# clothing.cost = 22.99
-# table_service.insert_entity('itemstable', clothing)
-# print('Created entry for a Sweater...\n')
-# time.sleep(1)
-
-# clothing = Entity()
-# clothing.PartitionKey = 'clothingstore'
-# clothing.RowKey = '006'
-# clothing.sku = 'BLK203143'
-# clothing.item = 'jeans'
-# clothing.cost = 55.99
-# table_service.insert_entity('itemstable', clothing)
-# print('Created entry for Jeans...\n')
 time.sleep(1)
 
 ###
@@ -172,7 +129,6 @@ for item in items:
     print('Brand: ' + item.brand)
     print('Flavor: ' + item.flavor)
     print('Size: ' + item.size)
-    print('Model: ' + item.model)
     print('Price: ' + str(item.price) + '\n')
 
 # items = table_service.query_entities('itemstable', filter="PartitionKey eq 'pizzamenu'", select='description,cost')
