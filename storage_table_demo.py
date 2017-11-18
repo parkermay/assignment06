@@ -96,13 +96,12 @@ raw_input('Press Enter to continue...')
 # These two properties are used as a primary key to index the Table. This makes queries much quicker.
 
 # Create car entities
-keyCounter = 1
-addCar(keyCounter++, 'Audi', 'Q5', 2017, 'black', 58999)
-addCar(keyCounter++, 'Ford', 'Explorer', 2016, 'purple', 45000)
-addCar(keyCounter++, 'Subaru', 'Outback', 2015, 'green', 43000)
-addCar(keyCounter++, 'BMW', 'X3', 2010, 'red', 62000)
+addCar(1, 'Audi', 'Q5', 2017, 'black', 58999)
+addCar(2, 'Ford', 'Explorer', 2016, 'purple', 45000)
+addCar(3, 'Subaru', 'Outback', 2015, 'green', 43000)
+addCar(4, 'BMW', 'X3', 2010, 'red', 62000)
 
-addCoffee(keyCounter++, 'Folgers', 'Almond', 'small', 2.50)
+addCoffee(5, 'Folgers', 'Almond', 'small', 2.50)
 
 # pizza = Entity()
 # pizza.PartitionKey = 'pizzamenu'
@@ -160,11 +159,21 @@ raw_input('Press Enter to continue...')
 
 # In this query, you define the partition key to search within, and then which properties to retrieve
 # Structuring queries like this improves performance as your application scales up and keeps the queries efficient
-items = table_service.query_entities('itemstable', filter="PartitionKey eq 'cardealership'", select='make,model,year')
+items = table_service.query_entities('itemstable', filter="PartitionKey eq 'cardealership'", select='make,model,year,color,price')
 for item in items:
     print('Make: ' + item.make)
     print('Model: ' + item.model)
-    print('Yead: ' + str(item.year) + '\n')
+    print('Year: ' + str(item.year) + '\n')
+    print('Color: ' + item.color)
+    print('Price: ' + str(item.price) + '\n')
+
+items = table_service.query_entities('itemstable', filter="PartitionKey eq 'coffeeshop'", select='brand,flavor,size,price')
+for item in items:
+    print('Brand: ' + item.brand)
+    print('Flavor: ' + item.flavor)
+    print('Size: ' + item.size)
+    print('Model: ' + item.model)
+    print('Price: ' + str(item.price) + '\n')
 
 # items = table_service.query_entities('itemstable', filter="PartitionKey eq 'pizzamenu'", select='description,cost')
 # for item in items:
