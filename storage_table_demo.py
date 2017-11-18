@@ -1,6 +1,21 @@
 import string,random,time,azurerm,json
 from azure.storage.table import TableService, Entity
 
+# function to add cars
+def addCar(rowKey, make, model, year, color, price)
+    car = Entity()
+    car.PartitionKey = 'cardealership'
+    car.RowKey = str(rowKey);
+    car.make = make
+    car.model = model
+    car.year = year
+    car.color = color
+    car.price = price
+    table_service.insert_entity('itemstable', car)
+    print('Created entry for car ' + make + ', ' + model)
+    return
+
+
 # Define variables to handle Azure authentication
 auth_token = azurerm.get_access_token_from_cli()
 subscription_id = azurerm.get_subscription_from_cli()
@@ -67,52 +82,57 @@ raw_input('Press Enter to continue...')
 # A row key is a unique ID for each entity in the partition
 # These two properties are used as a primary key to index the Table. This makes queries much quicker.
 
-pizza = Entity()
-pizza.PartitionKey = 'pizzamenu'
-pizza.RowKey = '001'
-pizza.description = 'Pepperoni'
-pizza.cost = 18
-table_service.insert_entity('itemstable', pizza)
-print('Created entry for pepperoni...')
+# Create car entities
 
-pizza = Entity()
-pizza.PartitionKey = 'pizzamenu'
-pizza.RowKey = '002'
-pizza.description = 'Veggie'
-pizza.cost = 15
-table_service.insert_entity('itemstable', pizza)
-print('Created entry for veggie...')
+addCar(1, 'Audi', 'Q5', 2017, 'black', 58999)
 
-pizza = Entity()
-pizza.PartitionKey = 'pizzamenu'
-pizza.RowKey = '003'
-pizza.description = 'Hawaiian'
-pizza.cost = 12
-table_service.insert_entity('itemstable', pizza)
-print('Created entry for Hawaiian...\n')
+
+# pizza = Entity()
+# pizza.PartitionKey = 'pizzamenu'
+# pizza.RowKey = '001'
+# pizza.description = 'Pepperoni'
+# pizza.cost = 18
+# table_service.insert_entity('itemstable', pizza)
+# print('Created entry for pepperoni...')
+
+# pizza = Entity()
+# pizza.PartitionKey = 'pizzamenu'
+# pizza.RowKey = '002'
+# pizza.description = 'Veggie'
+# pizza.cost = 15
+# table_service.insert_entity('itemstable', pizza)
+# print('Created entry for veggie...')
+
+# pizza = Entity()
+# pizza.PartitionKey = 'pizzamenu'
+# pizza.RowKey = '003'
+# pizza.description = 'Hawaiian'
+# pizza.cost = 12
+# table_service.insert_entity('itemstable', pizza)
+# print('Created entry for Hawaiian...\n')
 
 # A partition key tracks how like-minded entries in the Table are created and queried.
 # A row key is a unique ID for each entity in the partition
 # These two properties are used as a primary key to index the Table. This makes queries much quicker.
 
-clothing = Entity()
-clothing.PartitionKey = 'clothingstore'
-clothing.RowKey = '005'
-clothing.sku = 'BLK203123'
-clothing.item = 'sweater'
-clothing.cost = 22.99
-table_service.insert_entity('itemstable', clothing)
-print('Created entry for a Sweater...\n')
-time.sleep(1)
+# clothing = Entity()
+# clothing.PartitionKey = 'clothingstore'
+# clothing.RowKey = '005'
+# clothing.sku = 'BLK203123'
+# clothing.item = 'sweater'
+# clothing.cost = 22.99
+# table_service.insert_entity('itemstable', clothing)
+# print('Created entry for a Sweater...\n')
+# time.sleep(1)
 
-clothing = Entity()
-clothing.PartitionKey = 'clothingstore'
-clothing.RowKey = '006'
-clothing.sku = 'BLK203143'
-clothing.item = 'jeans'
-clothing.cost = 55.99
-table_service.insert_entity('itemstable', clothing)
-print('Created entry for Jeans...\n')
+# clothing = Entity()
+# clothing.PartitionKey = 'clothingstore'
+# clothing.RowKey = '006'
+# clothing.sku = 'BLK203143'
+# clothing.item = 'jeans'
+# clothing.cost = 55.99
+# table_service.insert_entity('itemstable', clothing)
+# print('Created entry for Jeans...\n')
 time.sleep(1)
 
 ###
@@ -123,15 +143,21 @@ raw_input('Press Enter to continue...')
 
 # In this query, you define the partition key to search within, and then which properties to retrieve
 # Structuring queries like this improves performance as your application scales up and keeps the queries efficient
-items = table_service.query_entities('itemstable', filter="PartitionKey eq 'pizzamenu'", select='description,cost')
+items = table_service.query_entities('itemstable', filter="PartitionKey eq 'cardealership'", select='make,model,year')
 for item in items:
-    print('Name: ' + item.description)
-    print('Cost: ' + str(item.cost) + '\n')
+    print('Make: ' + item.make)
+    print('Model: ' + item.model)
+    print('Yead: ' + str(item.year) + '\n')
 
-items = table_service.query_entities('itemstable', filter="PartitionKey eq 'clothingstore'", select='sku,price')
-for item in items:
-    print('Name: ' + item.sku)
-    print('Price: ' + str(item.price) + '\n')
+# items = table_service.query_entities('itemstable', filter="PartitionKey eq 'pizzamenu'", select='description,cost')
+# for item in items:
+#     print('Name: ' + item.description)
+#     print('Cost: ' + str(item.cost) + '\n')
+
+# items = table_service.query_entities('itemstable', filter="PartitionKey eq 'clothingstore'", select='sku,price')
+# for item in items:
+#     print('Name: ' + item.sku)
+#     print('Price: ' + str(item.price) + '\n')
 
 time.sleep(1)
 
@@ -140,17 +166,17 @@ time.sleep(1)
 # This was a quick demo to see Tables in action.
 # Although the actual cost is minimal (fractions of a cent per month) for the three entities we created, it's good to clean up resources when you're done
 ###
-print('\nThis is a basic example of how Azure Storage Tables behave like a database.\nTo keep things tidy, let\'s clean up the Azure Storage resources we created.')
-raw_input('Press Enter to continue...')
+# print('\nThis is a basic example of how Azure Storage Tables behave like a database.\nTo keep things tidy, let\'s clean up the Azure Storage resources we created.')
+# raw_input('Press Enter to continue...')
 
-response = table_service.delete_table('itemstable')
-if response == True:
-    print('Storage table: itemstable deleted successfully.')
-else:
-    print('Error deleting Storage Table')
+# response = table_service.delete_table('itemstable')
+# if response == True:
+#     print('Storage table: itemstable deleted successfully.')
+# else:
+#     print('Error deleting Storage Table')
 
-response = azurerm.delete_resource_group(auth_token, subscription_id, resourcegroup_name)
-if response.status_code == 202:
-    print('Resource group: ' + resourcegroup_name + ' deleted successfully.')
-else:
-    print('Error deleting resource group.')
+# response = azurerm.delete_resource_group(auth_token, subscription_id, resourcegroup_name)
+# if response.status_code == 202:
+#     print('Resource group: ' + resourcegroup_name + ' deleted successfully.')
+# else:
+#     print('Error deleting resource group.')
