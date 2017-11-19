@@ -89,7 +89,7 @@ print('Now let\'s add some entries to our Table.\nRemember, Azure Storage Tables
 raw_input('Press Enter to continue...')
 
 # Each entry in a Table is called an 'Entity'. 
-# Here, we add an entry for first pizza with two pieces of data - the name, and the cost
+# Here, we add an entry for first car with two pieces of data
 #
 # A partition key tracks how like-minded entries in the Table are created and queried.
 # A row key is a unique ID for each entity in the partition
@@ -111,7 +111,7 @@ time.sleep(1)
 ###
 # Use the Azure Storage Storage SDK for Python to query for entities in our Table
 ###
-print('With some data in our Azure Storage Table, we can query the data.\nLet\'s see what the pizza menu looks like.')
+print('With some data in our Azure Storage Table, we can query the data.\nLet\'s see what the car and coffee lists looks like.')
 raw_input('Press Enter to continue...')
 
 # In this query, you define the partition key to search within, and then which properties to retrieve
